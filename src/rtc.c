@@ -10,6 +10,7 @@
 #include "pico/util/datetime.h"
 #include "pico/sync.h"
 #include <pico/cyw43_arch.h>
+#include "gpio.h"
 
 static volatile bool fired = false;
 datetime_t alarm = {
