@@ -2,10 +2,14 @@
 #include <pico/stdlib.h>
 #include <pico/sync.h>
 #include "gpio.h"
+#define BUSY_WAIT 500000
+
 
 int toggle = 1;
 bool timer_callback(__unused struct repeating_timer *t)
 {
+    for (int i = 0; i < BUSY_WAIT; i++){};
+
     toggle = !toggle;
     gpio_put(OUT_PIN, toggle);
     return true;
