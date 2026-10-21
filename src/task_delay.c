@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <pico/stdlib.h>
+#include <pico/sync.h>
+
 #include <FreeRTOS.h>
 #include <task.h>
 #include "gpio.h"
@@ -13,8 +15,26 @@ void main_task(__unused void *params)
         toggle = !toggle;
         gpio_put(OUT_PIN, toggle);
 
-        for (int i = 0; i < BUSY_WAIT; i++){};
-        vTaskDelay(pdMS_TO_TICKS(DELAY_MS));
+        vTaskDelay(1U);
+    }
+}
+
+void second_task(__unused void *params)
+{
+    while(1){
+        __nop();
+    }
+}
+void third_task(__unused void *params)
+{
+    while(1){
+        __nop();
+    }
+}
+void fourth_task(__unused void *params)
+{
+    while(1){
+        __nop();
     }
 }
 
@@ -25,8 +45,16 @@ int main(void)
     gpio_set_dir(OUT_PIN, GPIO_OUT);
     const char *rtos_name = "FreeRTOS";
     TaskHandle_t task;
+    TaskHandle_t task2, task3, task4;
     xTaskCreate(main_task, "MainThread",
                 configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1UL, &task);
+    xTaskCreate(second_task, "SecondThread",
+                configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1UL, &task2);
+    xTaskCreate(third_task, "ThirdThread",
+                configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1UL, &task3);
+    xTaskCreate(fourth_task, "FOurthThread",
+                configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1UL, &task4);
+
     vTaskStartScheduler();
     return 0;
 }
