@@ -4,12 +4,16 @@
 #include <task.h>
 #include "gpio.h"
 
+#define BUSY_WAIT 1000000
+
 void main_task(__unused void *params)
 {
     int toggle = 0;
     while (1) {
         toggle = !toggle;
         gpio_put(OUT_PIN, toggle);
+
+        // for (int i = 0; i < BUSY_WAIT; i++){};
         vTaskDelay(pdMS_TO_TICKS(DELAY_MS));
     }
 }
