@@ -1,7 +1,7 @@
 # Observations
 
 ## Activity 1
-The jitter taken directly from from the max/min frequencies as the difference from the mean frequency. We calculate the drift using the [calc_timings.py](calc_timings.py) script with `ex_f = 20 Hz` (the expected/target frequency) and `ac_f` (the actual/measured frequency) set to the measured mean frequency.
+The jitter is taken directly from from the max/min frequencies as the difference from the mean frequency. We calculate the drift using the [calc_timings.py](calc_timings.py) script with `ex_f = 20 Hz` (the expected/target frequency) and `ac_f` (the actual/measured frequency) set to the measured mean frequency.
 
 - Scope channel 1 is the function generator
 - Scope channel 2 is the Pico
